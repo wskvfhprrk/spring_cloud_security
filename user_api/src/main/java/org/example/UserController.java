@@ -16,15 +16,19 @@ public class UserController {
     private UserService userService;
 
     @PostMapping
-    public User create(@RequestBody User user) {
-        user = userService.save(user);
-        return user;
+    public UserInfo create(@RequestBody UserInfo user) {
+        User u = userService.save(user);
+        UserInfo userInfo=new UserInfo();
+        userInfo.setId(u.getId());
+        return userInfo;
     }
 
     @PutMapping
-    public User update(@RequestBody User user) {
-        user = userService.update(user);
-        return user;
+    public UserInfo update(@RequestBody UserInfo user) {
+        User u = userService.update(user);
+        UserInfo userInfo=new UserInfo();
+        userInfo.setId(u.getId());
+        return userInfo;
     }
 
     @DeleteMapping("/{id}")
@@ -33,7 +37,7 @@ public class UserController {
     }
 
     @GetMapping("/{username}")
-    public User query(@PathVariable String username) {
+    public UserInfo query(@PathVariable String username) {
         return userService.findByUsername(username);
     }
 

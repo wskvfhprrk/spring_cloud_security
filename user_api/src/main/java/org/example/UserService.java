@@ -2,11 +2,11 @@ package org.example;
 
 public interface UserService {
 
-    User save(User user);
+    User save(UserInfo user);
 
-    User update(User user);
+    User update(UserInfo user);
 
     void delete(Long id);
 
-    User findByUsername(String username);
+    UserInfo findByUsername(String username);
 }

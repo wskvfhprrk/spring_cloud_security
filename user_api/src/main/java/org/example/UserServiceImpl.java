@@ -1,5 +1,6 @@
 package org.example;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,13 +14,17 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public User save(User user) {
-        User save = userRepository.save(user);
+    public User save(UserInfo user) {
+        User u=new User();
+        BeanUtils.copyProperties(user,u);
+        User save = userRepository.save(u);
         return save;
     }
 
-    public User update(User user) {
-        User save = userRepository.save(user);
+    public User update(UserInfo user) {
+        User u=new User();
+        BeanUtils.copyProperties(user,u);
+        User save = userRepository.save(u);
         return save;
     }
 
@@ -27,8 +32,10 @@ public class UserServiceImpl implements UserService {
         userRepository.deleteById(id);
     }
 
-    public User findByUsername(String username) {
+    public UserInfo findByUsername(String username) {
         User u = userRepository.findByUsername(username);
-        return u;
+        UserInfo userInfo=new UserInfo();
+        BeanUtils.copyProperties(u,userInfo);
+        return userInfo;
     }
 }

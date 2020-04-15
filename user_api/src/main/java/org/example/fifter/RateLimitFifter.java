@@ -14,7 +14,7 @@ import java.io.IOException;
 
 /**
  * @author: hejz
- * @Description: 限流过滤器
+ * @Description: 限流过滤器——实际业务会很复杂，比如vip人员限流数据多，普通用户限流少使用这样限流要根据用户信息限流
  * @Date: 2020/4/15 14:03
  */
 @Component
