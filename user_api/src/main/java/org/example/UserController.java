@@ -1,12 +1,13 @@
 package org.example;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 
 /**
  * @author: hejz
- * @Description:
+ * @Description: 人员信息控制器
  * @Date: 2020/4/15 12:47
  */
 @RestController
@@ -16,19 +17,17 @@ public class UserController {
     private UserService userService;
 
     @PostMapping
-    public UserInfo create(@RequestBody UserInfo user) {
+    public UserInfo create(@RequestBody @Validated UserInfo user) {
         User u = userService.save(user);
-        UserInfo userInfo=new UserInfo();
-        userInfo.setId(u.getId());
-        return userInfo;
+        user.setId(u.getId());
+        return user;
     }
 
     @PutMapping
-    public UserInfo update(@RequestBody UserInfo user) {
+    public UserInfo update(@RequestBody @Validated UserInfo user) {
         User u = userService.update(user);
-        UserInfo userInfo=new UserInfo();
-        userInfo.setId(u.getId());
-        return userInfo;
+        user.setId(u.getId());
+        return user;
     }
 
     @DeleteMapping("/{id}")

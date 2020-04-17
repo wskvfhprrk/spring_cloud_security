@@ -2,6 +2,7 @@ package org.example.fifter;
 
 import com.google.common.util.concurrent.RateLimiter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -19,6 +20,7 @@ import java.io.IOException;
  */
 @Component
 @Slf4j
+@Order(1)
 public class RateLimitFifter extends OncePerRequestFilter {
     //ratelimiter限速——每秒访问次数
     private RateLimiter rateLimiter = RateLimiter.create(1);
