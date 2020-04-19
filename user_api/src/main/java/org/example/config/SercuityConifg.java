@@ -1,5 +1,6 @@
 package org.example.config;
 
+import org.example.fifter.ActInterceptor;
 import org.example.log.AudiInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -18,10 +19,13 @@ public class SercuityConifg implements WebMvcConfigurer {
 
     @Autowired
     private AudiInterceptor audiInterceptor;
+    @Autowired
+    private ActInterceptor actInterceptor;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(audiInterceptor);
+        registry.addInterceptor(actInterceptor);
         //……可以按顺序添加多个拦截器
     }
 }
