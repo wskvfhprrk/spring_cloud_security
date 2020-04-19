@@ -7,4 +7,13 @@
 3、审计:它不仅要记录访问，同时要记录响应结果，使用`Interceptor`来记录——继承`HandlerInterceptorAdapter`。
 4、权限：权限位于审计之后使用拦截器处理
 ### 框架安全处理
-#### session
+#### session 固定攻击
+
+防止session固定攻击:如果session不是空值时把原来的session失效，生成新的session
+```java
+            HttpSession session = request.getSession(false);
+            if(session!=null){
+                session.invalidate();
+            }
+            request.getSession().setAttribute("user", user);
+```

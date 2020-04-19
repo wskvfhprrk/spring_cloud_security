@@ -1,5 +1,7 @@
 package org.example;
 
+import javax.servlet.http.HttpServletRequest;
+
 public interface UserService {
 
     User save(UserInfo user);
@@ -9,4 +11,7 @@ public interface UserService {
     void delete(Long id);
 
     UserInfo findByUsername(String username);
+
+    void login(UserLoginDto user, HttpServletRequest request);
+
 }

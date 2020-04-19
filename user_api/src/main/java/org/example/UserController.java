@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 
 /**
  * @author: hejz
@@ -15,6 +17,11 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     @Autowired
     private UserService userService;
+
+    @GetMapping("login")
+    public void login(UserLoginDto user, HttpServletRequest request) {
+        userService.login(user, request);
+    }
 
     @PostMapping
     public UserInfo create(@RequestBody @Validated UserInfo user) {
