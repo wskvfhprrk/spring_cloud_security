@@ -2,8 +2,6 @@ package org.example.fifter;
 
 import lombok.extern.slf4j.Slf4j;
 import org.example.User;
-import org.example.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -19,8 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 @Component
 @Slf4j
 public class ActInterceptor extends HandlerInterceptorAdapter {
-    @Autowired
-    private UserRepository userRepository;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)

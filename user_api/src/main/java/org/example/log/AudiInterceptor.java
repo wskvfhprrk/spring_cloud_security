@@ -25,11 +25,11 @@ public class AudiInterceptor extends HandlerInterceptorAdapter {
         log.setMethod(request.getMethod());
         log.setPath(request.getContextPath());
         log.setPath(request.getRequestURI());
-
-        User user = (User) request.getAttribute("user");
-        if (null != user) {
-            log.setUsername(user.getUsername());
-        }
+//使用@CreateBy添加
+//        User user = (User) request.getAttribute("user");
+//        if (null != user) {
+//            log.setUsername(user.getUsername());
+//        }
         log = auditRepository.save(log);
         request.setAttribute("auditLogId", log.getId());
         return true;
