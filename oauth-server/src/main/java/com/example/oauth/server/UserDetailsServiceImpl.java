@@ -1,4 +1,4 @@
-package com.example.oauth;
+package com.example.oauth.server;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
