@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: order-server
+server:
+  port: 9060

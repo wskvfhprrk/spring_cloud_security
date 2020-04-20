@@ -7,6 +7,7 @@
   </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/order-server" />
     <file type="web" url="file://$PROJECT_DIR$/user_api" />
   </component>
   <component name="MavenProjectsManager">

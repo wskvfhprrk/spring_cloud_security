@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: price-server
+server:
+  port: 9080
