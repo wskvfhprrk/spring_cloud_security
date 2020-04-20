@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="price-server" />
+        <module name="oauth-server" />
         <module name="order-server" />
         <module name="user_api" />
       </profile>
