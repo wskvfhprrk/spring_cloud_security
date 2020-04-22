@@ -1,5 +1,6 @@
 package com.example.oauth.server;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Component;
  * @Date: 2020/4/20 20:38
  */
 @Component
+@Slf4j
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
@@ -26,6 +28,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
      * @throws UsernameNotFoundException
      */
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+        log.info("passwordEncoder");
         return User.withUsername(s)
                 .password(passwordEncoder.encode("123456"))
                 .authorities("ROLE_ADMIN")
