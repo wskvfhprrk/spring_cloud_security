@@ -24,7 +24,6 @@ import javax.sql.DataSource;
 @Configuration
 @EnableAuthorizationServer
 @Slf4j
-@AutoConfigureAfter(OAuth2WebserverConfig.class)
 public class OAuth2AuthServerconfig extends AuthorizationServerConfigurerAdapter {
     @Autowired
     private AuthenticationManager authenticationManager;
