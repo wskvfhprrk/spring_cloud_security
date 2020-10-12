@@ -6,3 +6,6 @@ spring:
     username: root
     password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    generate-ddl: true #使用对象与数据表对象一致，开发时使用，生产不能够使用，生产数据库表结构都经过审批的
+    show-sql: true #打印日志
