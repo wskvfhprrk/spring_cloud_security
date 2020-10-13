@@ -4,6 +4,7 @@ import com.hejz.security.entity.User;
 import com.hejz.security.resitory.UserResitory;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Base64Utils;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -19,6 +20,8 @@ import java.util.List;
  * 认证过滤器——认证不认证通过，都给放行，认证通过可以在request请求中绑定身份参数，也可以绑定其它需要身份参数
  */
 @Component
+//使用Order多个过滤器排序执行
+@Order(2)
 public class BasicAuthionFilter extends OncePerRequestFilter {
 
     @Autowired
