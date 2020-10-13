@@ -1,7 +1,9 @@
 package com.hejz.security.controller;
 
 import com.hejz.security.entity.User;
+import com.hejz.security.entity.UserInfo;
 import com.hejz.security.resitory.UserResitory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -10,6 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("users")
@@ -22,9 +25,11 @@ public class UserController {
     private UserResitory userResitory;
 
     @PostMapping
-    public User Create(@RequestBody User user) {
+    public UserInfo Create(@RequestBody User user) {
         user = userResitory.save(user);
-        return user;
+        UserInfo userInfo=new UserInfo();
+        BeanUtils.copyProperties(user,userInfo);
+        return userInfo;
     }
 
     @DeleteMapping("{id}")
@@ -34,35 +39,46 @@ public class UserController {
     }
 
     @PutMapping("{id}")
-    public User update(@RequestBody User user) {
+    public UserInfo update(@RequestBody User user) {
         User save = userResitory.save(user);
-        return save;
+        UserInfo userInfo=new UserInfo();
+        BeanUtils.copyProperties(save,userInfo);
+        return userInfo;
     }
 
     @GetMapping("{id}")
-    public User getById(@PathVariable Long id) {
+    public UserInfo getById(@PathVariable Long id) {
         User user = userResitory.findById(id).orElse(null);
-        return user;
+        UserInfo userInfo=new UserInfo();
+        BeanUtils.copyProperties(user,userInfo);
+        return userInfo;
     }
 
     @GetMapping
     public List query(String username) {
         List<User> all = userResitory.findByUsername(username);
-        return all;
+        List<UserInfo> collect = all.stream().map(s -> {
+            UserInfo userInfo = new UserInfo();
+            BeanUtils.copyProperties(s, userInfo);
+            return userInfo;
+        }).collect(Collectors.toList());
+        return collect;
 //        String sql = "select id,username from user where username='" + username + "'";
 //        List<Map<String, Object>> maps = jdbcTemplate.queryForList(sql);
 //        return maps;
     }
     @GetMapping("findAll")
-    public Iterable<User> findAll(){
-        //按username倒序把列
-//        Sort sort=Sort.by(Sort.Direction.DESC,"username");
-//        Iterable<User> all = userResitory.findAll(sort);
+    public List<UserInfo> findAll(){
         //第一页为0，每页2条，查询
         Pageable pageable=PageRequest.of(0, 2);
         //分页可加入排序功能
         pageable.getSortOr(Sort.by(Sort.Direction.DESC,"username"));
         Page<User> all = userResitory.findAll(pageable);
-        return all;
+        List<UserInfo> collect = all.stream().sequential().map(s -> {
+            UserInfo userInfo = new UserInfo();
+            BeanUtils.copyProperties(s, userInfo);
+            return userInfo;
+        }).collect(Collectors.toList());
+        return collect;
     }
 }
