@@ -79,6 +79,7 @@ public class UserController {
             BeanUtils.copyProperties(s, userInfo);
             return userInfo;
         }).collect(Collectors.toList());
-        return collect;
+        throw new RuntimeException("程序错误");
+//        return collect;
     }
 }
