@@ -1,9 +1,9 @@
-package com.hejz.product;
+package com.hejz.order;
 
 import lombok.Data;
 
 @Data
-public class Product {
+public class Order {
     private Long id;
     private String name;
 }

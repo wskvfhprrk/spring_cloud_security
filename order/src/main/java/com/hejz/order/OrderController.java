@@ -1,4 +1,4 @@
-package com.hejz.product;
+package com.hejz.order;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,13 +11,13 @@ import org.springframework.web.client.RestTemplate;
 @RestController
 @RequestMapping("products")
 @Slf4j
-public class ProcuctController {
+public class OrderController {
 
     @Autowired
     private RestTemplate restTemplate;
     @PostMapping
-    private void creat(@RequestBody Product product){
-        Long price = restTemplate.getForObject("http://localhost:8090/prices/" + product.getId(), Long.class);
+    private void creat(@RequestBody Order order){
+        Long price = restTemplate.getForObject("http://localhost:8090/prices/" + order.getId(), Long.class);
         log.info("price:{}",price);
     }
 }
