@@ -7,7 +7,9 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="product" />
         <module name="com.hejz.security" />
+        <module name="price" />
         <module name="spring_cloud_security" />
       </profile>
     </annotationProcessing>
@@ -15,6 +17,8 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="com.hejz.security" options="" />
+      <module name="price" options="-parameters" />
+      <module name="product" options="-parameters" />
     </option>
   </component>
 </project>
