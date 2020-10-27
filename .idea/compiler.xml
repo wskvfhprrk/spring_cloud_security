@@ -11,6 +11,7 @@
         <module name="oauth" />
         <module name="price" />
         <module name="spring_cloud_security" />
+        <module name="order" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -21,6 +22,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="com.hejz.security" options="" />
       <module name="oauth" options="-parameters" />
+      <module name="order" options="-parameters" />
       <module name="price" options="-parameters" />
       <module name="product" options="-parameters" />
     </option>

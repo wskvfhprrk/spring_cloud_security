@@ -36,7 +36,7 @@ public class Oauth2AuthConfig extends AuthorizationServerConfigurerAdapter {
                 .authorizedGrantTypes("password")
                 .and()
                 //客户端名称
-                .withClient("orderService")
+                .withClient("orderServer")
                 //客户端密码
                 .secret(passwordEncoder.encode("123456"))
                 //请求的权限
