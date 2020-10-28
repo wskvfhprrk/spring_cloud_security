@@ -85,3 +85,34 @@
 - 容器化部署导致的访问和证书控制问题
 - 如何在微服务音共享用户登陆状态
 - 多语言架构要求每一个团队都有一定的安全经验
+
+### 微服务安全使用springCloudOauth2框架
+
+###### 使用自定义的userDetails获取用户信息其它值
+
+1. 建一个User实现userDetails（包含有其它信息——所需要用户的信息）；
+2. 建一个userDetailsServiceImpl实现UserDetailsService,引用已经建立好的User（需要在数据库中查询其值）；
+3. 在WebSecurityConfigurerAdapter适配器类中引用自定义的UserDetailsService:
+
+```java
+@Bean
+    public ResourceServerTokenServices tokenServices(){
+        RemoteTokenServices services=new RemoteTokenServices();
+        services.setClientId("orderServer");
+        services.setClientSecret("123456");
+        services.setCheckTokenEndpointUrl("http://localhost:9090/oauth/check_token");
+        //使用自定义的userDetailsService
+        services.setAccessTokenConverter(GetAccessTokenCoverter());
+        return services;
+    }
+
+    private AccessTokenConverter GetAccessTokenCoverter() {
+        DefaultAccessTokenConverter accessTokenConverter=new DefaultAccessTokenConverter();
+        DefaultUserAuthenticationConverter userTokenConverter=new DefaultUserAuthenticationConverter();
+        //使用自定义的userDetailsService
+        userTokenConverter.setUserDetailsService(userDetailsService);
+        accessTokenConverter.setUserTokenConverter(userTokenConverter);
+        return accessTokenConverter;
+    }
+```
+
