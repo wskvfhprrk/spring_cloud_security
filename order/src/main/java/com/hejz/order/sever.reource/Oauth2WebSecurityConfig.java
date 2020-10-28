@@ -1,13 +1,14 @@
 package com.hejz.order.sever.reource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationManager;
-import org.springframework.security.oauth2.provider.token.RemoteTokenServices;
-import org.springframework.security.oauth2.provider.token.ResourceServerTokenServices;
+import org.springframework.security.oauth2.provider.token.*;
 
 /**
  * security安全配置
@@ -15,6 +16,9 @@ import org.springframework.security.oauth2.provider.token.ResourceServerTokenSer
 @Configuration
 @EnableWebSecurity
 public class Oauth2WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    private UserDetailsService userDetailsService;
     /**
      * 去
      * @return
@@ -25,7 +29,18 @@ public class Oauth2WebSecurityConfig extends WebSecurityConfigurerAdapter {
         services.setClientId("orderServer");
         services.setClientSecret("123456");
         services.setCheckTokenEndpointUrl("http://localhost:9090/oauth/check_token");
+        //使用自定义的userDetailsService
+        services.setAccessTokenConverter(GetAccessTokenCoverter());
         return services;
+    }
+
+    private AccessTokenConverter GetAccessTokenCoverter() {
+        DefaultAccessTokenConverter accessTokenConverter=new DefaultAccessTokenConverter();
+        DefaultUserAuthenticationConverter userTokenConverter=new DefaultUserAuthenticationConverter();
+        //使用自定义的userDetailsService
+        userTokenConverter.setUserDetailsService(userDetailsService);
+        accessTokenConverter.setUserTokenConverter(userTokenConverter);
+        return accessTokenConverter;
     }
 
     @Bean
